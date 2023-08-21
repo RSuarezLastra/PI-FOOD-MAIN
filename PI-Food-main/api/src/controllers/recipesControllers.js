@@ -63,8 +63,11 @@ const getRecipesTitle = async (name) => {
 }
 
 const getAllRecipes = async () => {
-    const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&number=100`)
-    return response.data;
+    const {data} = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+    const result = data.results;
+    const recipes = result.map(({id,title,image,diets}) => (
+        {id,title,image,diets}))
+    return recipes;
 }
 
 const createRecipe = async (object, diets) => {
