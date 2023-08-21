@@ -1,12 +1,17 @@
-import { useState } from 'react'
-import './App.css'
+import {Route, Routes} from 'react-router-dom';
+import {Landing, Home, Detail, Create} from "./views/index"
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <>
-      
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/home' element={<Home/>}/>
+        <Route path='/home/:id' element={<Detail/>}/>
+        <Route path='/create' element={<Create/>}/>
+      </Routes>
     </>
   )
 }
