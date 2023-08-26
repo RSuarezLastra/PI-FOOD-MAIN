@@ -3,10 +3,10 @@ const axios = require('axios');
 const {Recipe, Diet} = require('../db')
 
 require('dotenv').config();
-const {API_KEY, URL_RECIPE, URL_COMPLEX} = process.env;
+const {API_KEY, URL_RECIPE, URL_COMPLEX, API_KEY2, API_KEY3, API_KEY4} = process.env;
 
 
-const getRecipes = async (ID) => {
+const getRecipesId = async (ID) => {
     const removeHtmlTags =(input) => {
         return input.replace(/<\/?[^>]+(>|$)/g, ""); 
     }
@@ -18,7 +18,10 @@ const getRecipes = async (ID) => {
             }
             const relationrecipe = await Recipe.findOne({
                 where: {id: dbRecipe.id},
-                include:[{model :Diet, attributes: ["name"], through: {attributes: []}}]
+                include:[{model :Diet, 
+                        attributes: ["name"], 
+                        through: {attributes: []}
+                    }]
             })
             const dietsArray = relationrecipe.diets.map(diet => diet.name);
             const updatedRecipe = {
@@ -27,16 +30,19 @@ const getRecipes = async (ID) => {
             };
             return updatedRecipe;
         }else{
-            const {data} = await axios.get(`${URL_RECIPE}/${ID}/information?apiKey=${API_KEY}`)
+            const {data} = await axios.get(`${URL_RECIPE}/${ID}/information?apiKey=${API_KEY4}`)
         
-            const {id,title,image,summary,healthScore, instructions, diets} = data;
+            const {id,title,image,summary,healthScore, analyzedInstructions, diets} = data;
+            const steps = analyzedInstructions.map(({steps})=> {
+                return steps.map((obj)=>obj.step)
+            })
             const recipe = {
                 id,
                 title,
                 image,
                 summary: removeHtmlTags(summary),
                 healthScore,
-                instructions: !instructions ? null : removeHtmlTags(instructions),
+                steps,
                 diets
             }
             return recipe;
@@ -48,26 +54,55 @@ const getRecipes = async (ID) => {
 
 const getRecipesTitle = async (name) => {
 
-    const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&number=100`)
-    if(!response.data){
-        const dbRecipe = await Recipe.findOne({
-            where:{name}
-        })
-        if(!dbRecipe) throw Error('Recipe not found') 
-        return dbRecipe 
-    }
-    const result = response.data.results.find(
+    const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY4}&addRecipeInformation=true&number=100`)
+    const result = response.data.results.filter(
         (recipe) =>recipe.title.toLowerCase().split(" ")[0] === name.toLowerCase().split(" ")[0]);
-    if(result) return result;
-    
+
+    if(!result.length){
+        const dbRecipe = await Recipe.findOne({
+            where:{title: name},
+            include:[{model :Diet, 
+                attributes: ["name"], 
+                through: {attributes: []}
+            }]
+        })
+        console.log(dbRecipe)
+        if(!dbRecipe) throw Error('Recipe not found')
+
+        const dietsArray = dbRecipe.diets.map(diet => diet.name);
+        const updatedRecipe = {
+            ...dbRecipe.toJSON(),
+            diets: dietsArray
+        };
+        return updatedRecipe; 
+    }
+
+    const recipe = result.map(({id,title,image, diets})=>({id,title,image,diets}))
+    if(recipe) return recipe;
 }
 
 const getAllRecipes = async () => {
-    const {data} = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+    const dbRecipes = await Recipe.findAll({
+        include:[{model: Diet,
+                attributes:["name"],
+                through:{attributes:[]}
+        }]
+    });
+    const {data} = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY4}&addRecipeInformation=true&number=100`)
     const result = data.results;
-    const recipes = result.map(({id,title,image,diets}) => (
-        {id,title,image,diets}))
-    return recipes;
+
+    const apiRecipes = result.map(({id,title,image,diets, vegetarian, healthScore}) => {
+        if(vegetarian) diets.unshift("vegetarian")
+        return {id,title,image,diets, healthScore}
+    })
+
+    const transformedDbRecipes = dbRecipes.map(recipe => ({
+        ...recipe.toJSON(),
+        diets: recipe.diets.map(diet => diet.name)
+    }));    
+
+    const allRecipes = transformedDbRecipes.concat(apiRecipes)
+    return allRecipes;
 }
 
 const createRecipe = async (object, diets) => {
@@ -77,25 +112,24 @@ const createRecipe = async (object, diets) => {
         {where:{
             name: diets}
         })
-        
-        await newRecipe.addDiet(dietFound);
+    await newRecipe.addDiet(dietFound);
 
-        const relationrecipe = await Recipe.findOne({
-            where: {id: newRecipe.id},
-            include:[{model :Diet, attributes: ["name"], through: {attributes: []}}]
-        })
-        const dietsArray = relationrecipe.diets.map(diet => diet.name);
+    const relationrecipe = await Recipe.findOne({
+        where: {id: newRecipe.id},
+        include:[{model :Diet, attributes: ["name"], through: {attributes: []}}]
+    })
+    const dietsArray = relationrecipe.diets.map(diet => diet.name);
 
-        const updatedRecipe = {
-            ...relationrecipe.toJSON(),
-            diets: dietsArray
-        };
+    const updatedRecipe = {
+        ...relationrecipe.toJSON(),
+        diets: dietsArray
+    };
 
     return updatedRecipe;
 }
 
 module.exports = {
-    getRecipes,
+    getRecipesId,
     getRecipesTitle,
     getAllRecipes,
     createRecipe

@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Diet } = require('../db');
 
 require('dotenv').config();
-const {API_KEY, URL_COMPLEX} = process.env;
+const {API_KEY, URL_COMPLEX, API_KEY2, API_KEY3, API_KEY4} = process.env;
 
 const getDiets = async () => {
     let dietTypes = []

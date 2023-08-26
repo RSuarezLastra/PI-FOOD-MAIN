@@ -1,0 +1,29 @@
+body{
+    margin: 0;
+}
+h2{
+    margin: 0;
+}
+
+.bg_image{
+    width: 100%;
+    height: 100vh;
+    background-image:url(../../img/food-table.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-position: center center; */
+}
+
+.container_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.land_text{
+    margin-bottom: 5rem;
+    font-size: 5rem;
+    color: rgb(41, 206, 96);
+}

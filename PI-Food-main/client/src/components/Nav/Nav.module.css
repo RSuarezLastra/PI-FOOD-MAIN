@@ -1,0 +1,16 @@
+.NavBar{
+    background-color: rgb(22, 160, 95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly
+}
+
+.link{
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.link:hover{
+    color: yellow;
+}

@@ -1,9 +1,9 @@
-const {getRecipes , getRecipesTitle,getAllRecipes, createRecipe } = require('../controllers/recipesControllers');
+const {getRecipesId , getRecipesTitle,getAllRecipes, createRecipe } = require('../controllers/recipesControllers');
 
 const getRecipesById = async (req, res) => {
     try {
         const {id} = req.params;
-        const result = await getRecipes(id);        
+        const result = await getRecipesId(id);        
         return res.status(200).json(result);
         
     } catch (error) {
