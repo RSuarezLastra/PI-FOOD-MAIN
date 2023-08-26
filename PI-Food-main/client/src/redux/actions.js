@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_NAME, DETAIL, CLEAR_DETAIL, ORDER, FILTER, CHARGE_DIETS } from './actionsType';
+import { GET_RECIPES, GET_NAME, DETAIL, CLEAR_DETAIL, ORDER, FILTER, CHARGE_DIETS, RESET_FILTER } from './actionsType';
 import axios from 'axios';
 
 export const getRecipes = () => {
@@ -63,6 +63,13 @@ export const filterRecipes = (filter) => {
     return{
         type: FILTER,
         payload: filter
+    }
+}
+
+export const resetFilter = (reset) => {
+    return {
+        type: RESET_FILTER,
+        payload: reset
     }
 }
 

@@ -1,4 +1,4 @@
-import { GET_NAME, GET_RECIPES , DETAIL , CLEAR_DETAIL, ORDER, FILTER, CHARGE_DIETS } from "./actionsType";
+import { GET_NAME, GET_RECIPES , DETAIL , CLEAR_DETAIL, ORDER, FILTER, CHARGE_DIETS, RESET_FILTER} from "./actionsType";
 
 const initialState = {
     allRecipes: [],
@@ -26,10 +26,10 @@ const rootReducer = (state = initialState, action) => {
             case ORDER:
                 const order = [...state.allRecipes].sort((a,b)=> {
                     if("A-Z" === action.payload ){
-                        return a.name > b.name ? 1 : -1;
+                        return a.title > b.title ? 1 : -1;
                     } 
                     if("Z-A" === action.payload){
-                        return a.name < b.name ? 1 : -1;
+                        return a.title < b.title ? 1 : -1;
                     }
                 return 0})
             return {...state, 
@@ -41,6 +41,10 @@ const rootReducer = (state = initialState, action) => {
                 const newFiltered = [...state.copyAllRecipes].filter((recipe)=> recipe.diets.includes(action.payload))
                 return {...state,
                     allRecipes: newFiltered
+                }
+            case RESET_FILTER: 
+                return {...state,
+                    allRecipes: state.copyAllRecipes
                 }
         default:
             return {...state}

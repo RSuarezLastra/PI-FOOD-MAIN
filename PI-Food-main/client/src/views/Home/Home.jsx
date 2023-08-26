@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getRecipes, orderRecipes, getDietState, filterRecipes } from "../../redux/actions";
+import {getRecipes, orderRecipes, getDietState, filterRecipes, resetFilter } from "../../redux/actions";
 import { Cards } from "../../components/Cards/Cards";
-
 
 
 function Home() {
@@ -20,12 +19,16 @@ function Home() {
         const {value} = event.target;
         dispatch(orderRecipes(value))
     }
-    
     const handleFilter = (event) => {
         event.preventDefault();
         const {value} = event.target;
         dispatch(filterRecipes(value))
     }
+    const handleReset = (event)=> {
+        event.preventDefault();
+        const {value} = event.target;
+        dispatch(resetFilter(event))
+    };
     let diets = []
     stateDiet.map((element)=> {
         diets.push(element.name)
@@ -43,7 +46,7 @@ function Home() {
             </div>
             <div>
                 <h3>FILTER</h3>
-                <button>RESET</button>
+                <button value="RESET" onClick={handleReset}>RESET</button>
                 <select name="Filter" onChange={handleFilter} defaultValue={"Default"} >
                     <option value="Default" disabled>Diet</option>
                     {diets.map((diet)=>{

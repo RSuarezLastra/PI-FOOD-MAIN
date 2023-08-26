@@ -5,3 +5,4 @@ export const CLEAR_DETAIL = 'CLEAR_DETAIL';
 export const ORDER = 'ORDER';
 export const FILTER = 'FILTER';
 export const CHARGE_DIETS = 'CHARGE_DIETS';
+export const RESET_FILTER = 'ESET_FILTER';
