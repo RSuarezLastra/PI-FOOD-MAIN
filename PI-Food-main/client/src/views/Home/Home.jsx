@@ -29,10 +29,6 @@ function Home() {
         const {value} = event.target;
         dispatch(resetFilter(event))
     };
-    let diets = []
-    stateDiet.map((element)=> {
-        diets.push(element.name)
-    })
     return (
     <>
         <div>
@@ -49,7 +45,7 @@ function Home() {
                 <button value="RESET" onClick={handleReset}>RESET</button>
                 <select name="Filter" onChange={handleFilter} defaultValue={"Default"} >
                     <option value="Default" disabled>Diet</option>
-                    {diets.map((diet)=>{
+                    {stateDiet.map((diet)=>{
                         return <option value={diet}>{diet}</option>
                     })}
                 </select>
