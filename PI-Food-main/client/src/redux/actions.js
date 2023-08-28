@@ -1,14 +1,16 @@
-import { GET_RECIPES, GET_NAME, DETAIL, CLEAR_DETAIL, ORDER, FILTER, CHARGE_DIETS, RESET_FILTER } from './actionsType';
+import { GET_RECIPES, GET_NAME, DETAIL, CLEAR_DETAIL, ORDER, CHARGE_DIETS, RESET_FILTER, DIET_FILTER, ORIGIN_FILTER } from './actionsType';
 import axios from 'axios';
 
 export const getRecipes = () => {
     const endpoint = 'http://localhost:3001/recipes';
     return async (dispatch) => {
         try {
-            const {data} = await axios(endpoint)
+            const {data} = await axios(endpoint);
+            const recipesOrigin = data.map((recipe) => ({...recipe, origin: typeof recipe.id === 'number' ? 'API' : 'DB'}))
+            console.log(recipesOrigin)
             return dispatch({
                 type: GET_RECIPES,
-                payload: data
+                payload: recipesOrigin
             });
         } catch (error) {
             console.log(error.message)
@@ -20,7 +22,6 @@ export const getRecipeByName = (name) => {
     return async (dispatch) => {
         try {
             const {data} = await axios(endpoint)
-            console.log('actions' , data)
             return dispatch({
                 type: GET_NAME,
                 payload: data
@@ -61,8 +62,15 @@ export const orderRecipes = (order) => {
 
 export const filterRecipes = (filter) => {
     return{
-        type: FILTER,
+        type: DIET_FILTER,
         payload: filter
+    }
+}
+
+export const originFilter = (origin) => {
+    return{
+        type: ORIGIN_FILTER,
+        payload: origin
     }
 }
 

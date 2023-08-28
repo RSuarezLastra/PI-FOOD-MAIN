@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getRecipes, orderRecipes, getDietState, filterRecipes, resetFilter } from "../../redux/actions";
+import {getRecipes, orderRecipes, getDietState, filterRecipes, resetFilter, originFilter } from "../../redux/actions";
 import { Cards } from "../../components/Cards/Cards";
 
 
@@ -24,10 +24,15 @@ function Home() {
         const {value} = event.target;
         dispatch(filterRecipes(value))
     }
+    const handleOrigin = (event)=>{
+        event.preventDefault();
+        const {value} = event.target;
+        dispatch(originFilter(value))
+    }
     const handleReset = (event)=> {
         event.preventDefault();
         const {value} = event.target;
-        dispatch(resetFilter(event))
+        dispatch(resetFilter(value))
     };
     return (
     <>
@@ -37,17 +42,30 @@ function Home() {
         <div>
             <div>
                 <h3>ORDER</h3>
-                <button value="A-Z" onClick={handleOrder}>A-Z</button>
-                <button value="Z-A" onClick={handleOrder}>Z-A</button>
+                <select name="alphabetically" onChange={handleOrder} defaultValue={"DEFAULT"}>
+                    <option value="DEFAULT" disabled>alphabetically</option>
+                    <option value="A-Z">A-Z</option>
+                    <option value="Z-A">Z-A</option>
+                </select>
+                <select name="HealthScore" onChange={handleOrder} defaultValue={"DEFAULT"}>
+                    <option value="DEFAULT" disabled>HealthScore</option>
+                    <option value="HIG">Higher</option>
+                    <option value="LOW">Lower</option>
+                </select>
             </div>
             <div>
                 <h3>FILTER</h3>
                 <button value="RESET" onClick={handleReset}>RESET</button>
-                <select name="Filter" onChange={handleFilter} defaultValue={"Default"} >
+                <select name="DIET" onChange={handleFilter} defaultValue={"Default"} >
                     <option value="Default" disabled>Diet</option>
                     {stateDiet.map((diet)=>{
                         return <option value={diet}>{diet}</option>
                     })}
+                </select>
+                <select name="Origin" onChange={handleOrigin} defaultValue={"Default"} >
+                    <option value="Default" disabled>Origin</option>
+                    <option value="API">Api</option>
+                    <option value="DB">DataBase</option>
                 </select>
             </div>
         </div>

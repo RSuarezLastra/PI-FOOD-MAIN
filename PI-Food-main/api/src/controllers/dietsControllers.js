@@ -2,14 +2,14 @@ const axios = require('axios');
 const { Diet } = require('../db');
 
 require('dotenv').config();
-const {API_KEY, URL_COMPLEX, API_KEY2, API_KEY3, API_KEY4} = process.env;
+const {API_KEY, URL_COMPLEX, API_KEY2, API_KEY3, API_KEY4, API_KEY5, API_KEY6} = process.env;
 
 const getDiets = async () => {
 
     const dbDiets = await Diet.findAll();
     if(!dbDiets.length){
         let dietTypes = [];
-        const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+        const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY6}&addRecipeInformation=true&number=100`)
 
         const {results} = response.data;
         for (const props of results) {
