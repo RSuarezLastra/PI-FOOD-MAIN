@@ -1,10 +1,11 @@
 import { CardRecipe } from "../CardRecipe/CardRecipe"
+import style from './Cards.module.css';
 
 
 export const Cards = ({allRecipes}) => {
     
     return(
-        <div>
+        <div className={style.card_container}>
             {allRecipes.map(({id, title, image, diets})=>(
                 <CardRecipe 
                     key={id}

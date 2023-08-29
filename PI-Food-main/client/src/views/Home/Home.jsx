@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getRecipes, orderRecipes, getDietState, filterRecipes, resetFilter, originFilter } from "../../redux/actions";
 import { Cards } from "../../components/Cards/Cards";
+import style from "./Home.module.css"
+
 
 
 function Home() {
@@ -35,12 +37,12 @@ function Home() {
         dispatch(resetFilter(value))
     };
     return (
-    <>
+    <div>
         <div>
             <h2>Home page</h2>
         </div>
-        <div>
-            <div>
+        <div className={style.btn_container}>
+            <div className={style.order}>
                 <h3>ORDER</h3>
                 <select name="alphabetically" onChange={handleOrder} defaultValue={"DEFAULT"}>
                     <option value="DEFAULT" disabled>alphabetically</option>
@@ -71,7 +73,7 @@ function Home() {
         </div>
         <Cards allRecipes={allRecipes}/>
 
-    </>
+    </div>
     
     )
 

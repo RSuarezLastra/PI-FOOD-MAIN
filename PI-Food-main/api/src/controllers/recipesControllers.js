@@ -30,7 +30,7 @@ const getRecipesId = async (ID) => {
             };
             return updatedRecipe;
         }else{
-            const {data} = await axios.get(`${URL_RECIPE}/${ID}/information?apiKey=${API_KEY6}`)
+            const {data} = await axios.get(`${URL_RECIPE}/${ID}/information?apiKey=${API_KEY}`)
         
             const {id,title,image,summary,healthScore, analyzedInstructions, diets} = data;
             const steps = analyzedInstructions.map(({steps})=> {
@@ -54,7 +54,7 @@ const getRecipesId = async (ID) => {
 
 const getRecipesTitle = async (name) => {
 
-    const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY6}&addRecipeInformation=true&number=100`)
+    const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     const result = response.data.results.filter(
         (recipe) =>recipe.title.toLowerCase().split(" ")[0] === name.toLowerCase().split(" ")[0]);
 
@@ -88,7 +88,7 @@ const getAllRecipes = async () => {
                 through:{attributes:[]}
         }]
     });
-    const {data} = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY6}&addRecipeInformation=true&number=100`)
+    const {data} = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     const result = data.results;
 
     const apiRecipes = result.map(({id,title,image,diets, vegetarian, healthScore}) => {

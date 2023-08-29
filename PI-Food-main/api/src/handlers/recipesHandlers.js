@@ -29,7 +29,7 @@ const postNewRecipes = async (req, res) => {
         const {title,image,summary,healthScore,instructions,diets } = req.body;
         if(title){
             const recipe = await createRecipe({title,image,summary,healthScore,instructions}, diets); 
-            if(recipe) return res.status(200).json(recipe);
+            if(recipe) return res.status(200).send("Recipe Created");
         } 
     } catch (error) {
         return res.status(400).json({error: error.message})

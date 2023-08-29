@@ -9,7 +9,7 @@ const getDiets = async () => {
     const dbDiets = await Diet.findAll();
     if(!dbDiets.length){
         let dietTypes = [];
-        const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY6}&addRecipeInformation=true&number=100`)
+        const response = await axios.get(`${URL_COMPLEX}?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
 
         const {results} = response.data;
         for (const props of results) {
