@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getRecipes, orderRecipes, getDietState, filterRecipes, resetFilter, originFilter } from "../../redux/actions";
 import { Cards } from "../../components/Cards/Cards";
+import { Pagination } from "../../components/Pagination/Pagination";
 import style from "./Home.module.css"
-
 
 
 function Home() {
@@ -15,6 +15,14 @@ function Home() {
         dispatch(getRecipes())
         dispatch(getDietState())
     },[]);
+
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 9;
+    
+    const totalPages =  Math.ceil(allRecipes.length / itemsPerPage);
+    const first = (page - 1)* itemsPerPage;
+    const last = (page - 1 ) * itemsPerPage + itemsPerPage
+    const recipes = allRecipes.slice(first , last)
     
     const handleOrder = (event) => {
         event.preventDefault();
@@ -36,6 +44,7 @@ function Home() {
         const {value} = event.target;
         dispatch(resetFilter(value))
     };
+    console.log('home',recipes)
     return (
     <div>
         <div>
@@ -71,8 +80,8 @@ function Home() {
                 </select>
             </div>
         </div>
-        <Cards allRecipes={allRecipes}/>
-
+        <Cards recipes={recipes}/>
+        <Pagination page={page} setPage={setPage} total={totalPages}/>
     </div>
     
     )
