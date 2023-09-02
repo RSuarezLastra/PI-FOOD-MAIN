@@ -1,8 +1,117 @@
+body{
+    background-image: url(https://as1.ftcdn.net/v2/jpg/01/87/83/40/1000_F_187834064_r7JxixkJ3DGruVUJBp4tv9GhmFXWLqe3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container{
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    height: 100%;
+}
+
+.title{
+    text-align: center;
+    padding-top: 10px;
+}
+
 .btn_container{
     display: flex;
     justify-content: center;
     justify-content: space-evenly;
     margin-bottom: 2rem;
+}
+
+.order{
+    text-align: center;
+}
+.order select {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #444;
+    font-size: 1rem;
+    padding: .5rem ;
+    border: 2px solid #eee;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all ls ease;
+    box-shadow: .5rem .5rem 1rem #ccc,
+    -.5rem -.5rem 1rem #fff
+    
+}
+.order select{
+    color: #fff;
+}
+.order option{
+    background-color: #444;
+}
+.order select:hover{
+    box-shadow: .5rem .5rem 1rem #fff,
+    -.5rem -.5rem 1rem #ccc
+}
+.order select:active{
+    box-shadow: inset .5rem .5rem 1rem #fff,
+    inset -.2rem -.5rem 1rem #ccc
+}
+
+.filter{
+    text-align: center;
+}
+.filter button{
+    font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem ;
+    border: 2px solid #eee;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all ls ease;
+    box-shadow: .5rem .5rem 1rem #ccc,
+    -.5rem -.5rem 1rem #fff
+}
+
+.filter button:hover{
+    box-shadow: .5rem .5rem 1rem #fff,
+    -.5rem -.5rem 1rem #ccc
+}
+.filter button:active{
+    box-shadow: inset .5rem .5rem 1rem #fff,
+    inset -.2rem -.5rem 1rem #ccc
+}
+
+.filter select {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #444;
+    font-size: 1rem;
+    padding: .5rem ;
+    border: 2px solid #eee;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all ls ease;
+    box-shadow: .5rem .5rem 1rem #ccc,
+    -.5rem -.5rem 1rem #fff
+}
+.filter select{
+    color: #fff;
+}
+.filter option{
+    background-color: #444;
+}
+
+.filter select:hover{
+    box-shadow: .5rem .5rem 1rem #fff,
+    -.5rem -.5rem 1rem #ccc
+}
+.filter select:active{
+    box-shadow: inset .5rem .5rem 1rem #fff,
+    inset -.2rem -.5rem 1rem #ccc
 }
 
 

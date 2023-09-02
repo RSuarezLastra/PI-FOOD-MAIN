@@ -1,0 +1,33 @@
+.container_page{
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    height: 100%;
+}
+
+.container_detail{
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 70%;
+    margin: 0 auto;
+}
+.container_detail p{
+    font-size: 1.2rem;
+}
+.container_detail img{
+    width: 70%;
+}
+
+.title_page{
+    padding-top: 2rem;
+}
+
+.title_recipe{
+    padding: 1rem;
+}
+
+.min_margin{
+    margin: 10px;
+}

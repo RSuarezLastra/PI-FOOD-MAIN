@@ -20,10 +20,34 @@ h2{
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 999;
 }
 
 .land_text{
     margin-bottom: 5rem;
     font-size: 5rem;
-    color: rgb(41, 206, 96);
+    color:  #39bda7;
+    
+}
+.land_button{
+    display: inline-block;
+    cursor: pointer;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 19px;
+    color: black;
+    z-index: 1;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+}
+
+
+.land_button:hover{
+    top: -35%;
+    background-color: #39bda7;
+    transform: scale(1.05);
 }

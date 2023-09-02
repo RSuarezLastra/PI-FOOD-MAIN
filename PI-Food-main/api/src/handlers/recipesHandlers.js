@@ -26,9 +26,9 @@ const getRecipesByName = async (req, res) => {
 }
 const postNewRecipes = async (req, res) => {
     try {
-        const {title,image,summary,healthScore,instructions,diets } = req.body;
+        const {title,image,summary, healthScore,steps,diets } = req.body;
         if(title){
-            const recipe = await createRecipe({title,image,summary,healthScore,instructions}, diets); 
+            const recipe = await createRecipe({title,image,summary,healthScore,steps}, diets); 
             if(recipe) return res.status(200).send("Recipe Created");
         } 
     } catch (error) {

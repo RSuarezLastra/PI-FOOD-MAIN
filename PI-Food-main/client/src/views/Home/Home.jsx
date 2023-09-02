@@ -5,7 +5,6 @@ import { Cards } from "../../components/Cards/Cards";
 import { Pagination } from "../../components/Pagination/Pagination";
 import style from "./Home.module.css"
 
-
 function Home() {
     const dispatch = useDispatch();
     const allRecipes = useSelector((state) => state.allRecipes )
@@ -30,11 +29,13 @@ function Home() {
         dispatch(orderRecipes(value))
     }
     const handleFilter = (event) => {
+        setPage(1)
         event.preventDefault();
         const {value} = event.target;
         dispatch(filterRecipes(value))
     }
     const handleOrigin = (event)=>{
+        setPage(1)
         event.preventDefault();
         const {value} = event.target;
         dispatch(originFilter(value))
@@ -44,17 +45,17 @@ function Home() {
         const {value} = event.target;
         dispatch(resetFilter(value))
     };
-    console.log('home',recipes)
+    
     return (
-    <div>
-        <div>
+    <div className={style.container}>
+        <div className={style.title}>
             <h2>Home page</h2>
         </div>
         <div className={style.btn_container}>
             <div className={style.order}>
                 <h3>ORDER</h3>
                 <select name="alphabetically" onChange={handleOrder} defaultValue={"DEFAULT"}>
-                    <option value="DEFAULT" disabled>alphabetically</option>
+                    <option value="DEFAULT" disabled>Alphabetically</option>
                     <option value="A-Z">A-Z</option>
                     <option value="Z-A">Z-A</option>
                 </select>
@@ -64,11 +65,11 @@ function Home() {
                     <option value="LOW">Lower</option>
                 </select>
             </div>
-            <div>
+            <div className={style.filter}>
                 <h3>FILTER</h3>
                 <button value="RESET" onClick={handleReset}>RESET</button>
                 <select name="DIET" onChange={handleFilter} defaultValue={"Default"} >
-                    <option value="Default" disabled>Diet</option>
+                    <option className={style.default_select} value="Default" disabled>Diet</option>
                     {stateDiet.map((diet)=>{
                         return <option value={diet}>{diet}</option>
                     })}

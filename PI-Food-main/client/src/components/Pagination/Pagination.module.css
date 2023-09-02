@@ -1,0 +1,50 @@
+.page_container{
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+    padding: 2rem;
+}
+.page_container button{
+    cursor: pointer;
+}
+
+.btn_container{
+    display: flex;
+    gap: 10px;
+}
+.btn{
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #444;
+    font-size: 1rem;
+    padding: .5rem ;
+    border: 2px solid #eee;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all ls ease;
+    box-shadow: .5rem .5rem 1rem #ccc,
+    -.5rem -.5rem 1rem #fff
+    
+}
+
+.btn:hover{
+    background-color: #20c67a
+}
+
+.active{
+    background-color: #20c67a;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #444;
+    font-size: 1rem;
+    padding: .5rem ;
+    border: 2px solid #eee;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all ls ease;
+    box-shadow: .5rem .5rem 1rem #ccc,
+    -.5rem -.5rem 1rem #fff
+}

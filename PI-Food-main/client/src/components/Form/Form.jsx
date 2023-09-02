@@ -1,9 +1,10 @@
 import { useState } from "react"
 import axios from "axios"
 import { validation } from "./validation"
+import style from './Form.module.css'
 
 export function Form (){
-var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian","vegan","paleolithic","primal","whole 30","pescatarian",
+var arrayDiets = ["gluten free","vegetarian","dairy free","lacto ovo vegetarian","vegan","paleolithic","primal","whole 30","pescatarian",
 "ketogenic","fodmap friendly"]
 
     const [input, setInput] = useState({
@@ -44,7 +45,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
         setError(validation({...input,[name]: value}))
     }
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         try {
             const endpoint = 'http://localhost:3001/recipes'
             const response = await axios.post(endpoint , input)
@@ -61,7 +62,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form className={style.form} onSubmit={handleSubmit}>
             <div>
                 <label>Name</label>
                 <input 
@@ -69,7 +70,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                     name="title" 
                     onChange={handleChange}
                     value={input.title} />
-                    {error.title && <p>{error.title}</p>}
+                    {error.title && <p className={style.error}>{error.title}</p>}
             </div>
             <div>
                 <label >Summary</label>
@@ -78,7 +79,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                     name="summary" 
                     onChange={handleChange} 
                     value={input.summary} />
-                    {error.summary && <p>{error.summary}</p> }
+                    {error.summary && <p className={style.error}>{error.summary}</p> }
             </div>
             <div>
                 <label >HealthScore</label>
@@ -87,7 +88,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                     name="healthScore"
                     onChange={handleChange} 
                     value={input.healthScore}/>
-                    <p>{error.healthScore}</p>    
+                    {error.healthScore && <p className={style.error}>{error.healthScore}</p>}    
             </div>
             <div>
                 <label >Steps</label>
@@ -96,7 +97,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                     name="steps"
                     onChange={handleChange} 
                     value={input.steps} />
-                    <p>{error.steps}</p>    
+                    {error.steps && <p className={style.error}>{error.steps}</p>}    
             </div>
             <div>
                 <label >Diets</label>
@@ -114,7 +115,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                         <div key={index} value={diet}>{diet}<button onClick={(e)=>handleRemove(diet, e)}>x</button></div>
                     )) }
                 </div>
-                {error.diets && <p>{error.diets}</p>}
+                {error.diets && <p className={style.error}>{error.diets}</p>}
             </div>
             <div>
                 <label >Image</label>
@@ -123,7 +124,7 @@ var arrayDiets = ["vegetarian","gluten free","dairy free","lacto ovo vegetarian"
                     name="image"
                     onChange={handleChange}
                     value={input.image}/>
-                    <p>{error.image}</p>    
+                    {error.image && <p className={style.error}>{error.image}</p>}    
             </div>
             
             

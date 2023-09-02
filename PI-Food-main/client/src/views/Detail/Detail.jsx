@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
 import { clearDetail, recipeDetail } from "../../redux/actions";
 import { useEffect } from "react";
+import style from './Detail.module.css'
 
 function Detail() {
     const detailRecipe = useSelector((state) => state.detailRecipe)
@@ -16,17 +17,24 @@ function Detail() {
     }, [])
 
     const {title, image, summary, healthScore, steps, diets} = detailRecipe;
-
+    const formattedDiets = diets ? diets.map((diet, index) => (index === 0 ? diet : ` | ${diet}`)).join('') : '';
+    
     return (
-    <>
-        <h2>Detail page</h2>
-        <h2>{title}</h2>
-        <img src={image} alt="imagen de la receta" />
-        <p>{summary}</p>
-        <p>{healthScore}</p>
-        <p>{steps}</p>
-        <p>{diets}</p>
-    </>
+        <div className={style.container_page}>
+            <div className={style.container_detail}>
+                <h2 className={style.title_page}>Recipe information:</h2>
+                <h2 className={style.title_recipe}>{title}</h2>
+                <img src={image} alt="imagen de la receta" />
+                <p className={style.min_margin}>Summary:</p>
+                <p>{summary}</p>
+                <p>Health Score:{healthScore}</p>
+                <p className={style.min_margin}>Steps:</p>
+                <p>{steps}</p>
+                <p className={style.min_margin}>Diets:</p>
+                <p>{formattedDiets}</p>
+            </div>
+        </div>
+
     )
 }
 
